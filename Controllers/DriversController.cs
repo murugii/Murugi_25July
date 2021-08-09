@@ -11,7 +11,7 @@ namespace Murugi_25July.Controllers
 {
     public class DriversController : Controller
     {
-        EmergencyAppEntities _db = new EmergencyAppEntities();
+        EmergencyDispatchEntities _db = new EmergencyDispatchEntities();
         // GET: Drivers
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace Murugi_25July.Controllers
 
                 foreach(var user in list)
                 {
-                    _UsersViewModel.Add(new UsersViewModel { Email = user.Email, FirstName = user.FirstName, IdNumber = user.IdNumber });
+                    _UsersViewModel.Add(new UsersViewModel { Email = user.Email, FirstName = user.FirstName });
                 }
 
             }
@@ -47,9 +47,9 @@ namespace Murugi_25July.Controllers
 
             try
             {
-                var user = new User { Email = _UsersViewModel.Email, FirstName = _UsersViewModel.FirstName, Password = _UsersViewModel.Password, Username = _UsersViewModel.FirstName, Id = 5 };
+                var user = new User { Email = _UsersViewModel.Email, FirstName = _UsersViewModel.FirstName, Password = _UsersViewModel.Password };
 
-                using (var db = new EmergencyAppEntities())
+                using (var db = new EmergencyDispatchEntities())
                 {
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.Users.Add(user);

@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bdd4fa9f8ec74e4da20d8f2abf84af11" Name="Diagram1">
-        <EntityTypeShape EntityType="EmergencyAppModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="27fe79f1a7d84a70b426a146f346311a" Name="Diagram1" >
+        <EntityTypeShape EntityType="EmergencyDispatchModel.Setting" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EmergencyDispatchModel.User" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
