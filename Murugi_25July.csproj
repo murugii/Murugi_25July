@@ -177,6 +177,8 @@
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomFunctions\AfricasTalkingGateway.cs" />
+    <Compile Include="CustomFunctions\AppFunctions.cs" />
+    <Compile Include="CustomFunctions\EmailFunctions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
