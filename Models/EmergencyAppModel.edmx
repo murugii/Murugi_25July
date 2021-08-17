@@ -4,60 +4,126 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EmergencyAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Users">
+    <Schema Namespace="EmergencyDispatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Settings">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar(max)" />
-          <Property Name="Password" Type="nvarchar(max)" />
-          <Property Name="IdNumber" Type="nchar" MaxLength="10" />
+          <Property Name="AfricasTalkingAppName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AfricasTalkingApiKey" Type="nvarchar(max)" />
+          <Property Name="GoogleId" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailAppPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailSenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailUsername" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailSender" Type="nvarchar" MaxLength="50" />
+          <Property Name="SMTPPort" Type="int" />
+          <Property Name="SMTPHost" Type="nvarchar" MaxLength="50" />
+          <Property Name="LeaveNumbers" Type="nvarchar" MaxLength="50" />
+          <Property Name="LeaveRecallNumbers" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentNumbers" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeNumbers" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
         </EntityType>
-        <EntityContainer Name="EmergencyAppModelStoreContainer">
+        <EntityContainer Name="EmergencyDispatchModelStoreContainer">
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="EmergencyAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
+      <Schema Namespace="EmergencyDispatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EmergencyDispatchEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Settings" EntityType="EmergencyDispatchModel.Setting" />
+          <EntitySet Name="Users" EntityType="EmergencyDispatchModel.User" />
+        </EntityContainer>
+        <EntityType Name="Setting">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IdNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AfricasTalkingAppName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AfricasTalkingApiKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GoogleId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailAppPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailSenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailUsername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailSender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPort" Type="Int32" />
+          <Property Name="SMTPHost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeaveNumbers" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeaveRecallNumbers" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentNumbers" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeNumbers" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="EmergencyAppEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmergencyAppModelStoreContainer" CdmEntityContainer="EmergencyAppEntities">
+        <EntityContainerMapping StorageEntityContainer="EmergencyDispatchModelStoreContainer" CdmEntityContainer="EmergencyDispatchEntities" >
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="EmergencyDispatchModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="EmployeeNumbers" ColumnName="EmployeeNumbers" />
+                <ScalarProperty Name="DepartmentNumbers" ColumnName="DepartmentNumbers" />
+                <ScalarProperty Name="LeaveRecallNumbers" ColumnName="LeaveRecallNumbers" />
+                <ScalarProperty Name="LeaveNumbers" ColumnName="LeaveNumbers" />
+                <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="EmailSender" ColumnName="EmailSender" />
+                <ScalarProperty Name="GmailPassword" ColumnName="GmailPassword" />
+                <ScalarProperty Name="GmailUsername" ColumnName="GmailUsername" />
+                <ScalarProperty Name="GmailSenderName" ColumnName="GmailSenderName" />
+                <ScalarProperty Name="GmailAppPassword" ColumnName="GmailAppPassword" />
+                <ScalarProperty Name="GoogleId" ColumnName="GoogleId" />
+                <ScalarProperty Name="AfricasTalkingApiKey" ColumnName="AfricasTalkingApiKey" />
+                <ScalarProperty Name="AfricasTalkingAppName" ColumnName="AfricasTalkingAppName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="EmergencyAppModel.User">
+            <EntityTypeMapping TypeName="EmergencyDispatchModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

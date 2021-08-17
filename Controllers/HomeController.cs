@@ -8,6 +8,7 @@ namespace Murugi_25July.Controllers
 {
     public class HomeController : Controller
     {
+        //Nothing here just a test
         public ActionResult Index()
         {
             return View();

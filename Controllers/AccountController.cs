@@ -20,7 +20,7 @@ namespace Murugi_25July.Controllers
         /// <summary>
         /// Database Store property.
         /// </summary>
-        private EmergencyAppEntities _db = new EmergencyAppEntities();
+        private EmergencyDispatchEntities _db = new EmergencyDispatchEntities();
 
         #endregion
 
@@ -264,7 +264,7 @@ namespace Murugi_25July.Controllers
                 return HttpNotFound();
             }
 
-            using (var context = new EmergencyAppEntities())
+            using (var context = new EmergencyDispatchEntities())
             {
                 var user = context.Users.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
                 if (user != null)
@@ -286,7 +286,7 @@ namespace Murugi_25July.Controllers
             var message = "";
             if (ModelState.IsValid)
             {
-                using (var context = new EmergencyAppEntities())
+                using (var context = new EmergencyDispatchEntities())
                 {
                     var user = context.Users.Where(a => a.ResetPasswordCode == model.ResetCode).FirstOrDefault();
                     if (user != null)
