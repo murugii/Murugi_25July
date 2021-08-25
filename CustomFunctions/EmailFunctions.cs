@@ -11,7 +11,7 @@ namespace Murugi_25July.CustomFunctions
 {
     class EmailFunctions
     {
-        private static Models.LeaveManagementEntities _db = new Models.LeaveManagementEntities();
+        private static Models.EmergencyDispatchEntities _db = new Models.EmergencyDispatchEntities();
         //function sends emails
         public static async Task<bool> SendMailAsync(string RecipientMail, string RecipientName, string MailSubject, string MailBody)
         {
