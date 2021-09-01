@@ -13,10 +13,10 @@ namespace Murugi_25July.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EmergencyDispatchEntities : DbContext
+    public partial class EmergencyMedicalAndAmbulanceDispatchEntities : DbContext
     {
-        public EmergencyDispatchEntities()
-            : base("name=EmergencyDispatchEntities")
+        public EmergencyMedicalAndAmbulanceDispatchEntities()
+            : base("name=EmergencyMedicalAndAmbulanceDispatchEntities")
         {
         }
     
@@ -25,7 +25,9 @@ namespace Murugi_25July.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Setting> Settings { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
     }
 }
