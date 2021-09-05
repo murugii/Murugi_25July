@@ -12,18 +12,15 @@ namespace Murugi_25July.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Request
     {
+        public string Request_ID { get; set; }
+        public string RequestType { get; set; }
+        public string Description { get; set; }
+        public System.DateTime Date_Time { get; set; }
         public int User_ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string UserName { get; set; }
-        public int National_ID_Number { get; set; }
-        public string Email { get; set; }
-        public int PhoneNumber { get; set; }
-        public string Password { get; set; }
-        public string UserTyper { get; set; }
-        public string Residence { get; set; }
-        public string ResetPassCode { get; set; }
+        public string Vehicle_ID { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string RequestStatus { get; set; }
     }
 }
