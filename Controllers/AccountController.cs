@@ -20,7 +20,7 @@ namespace Murugi_25July.Controllers
         /// <summary>
         /// Database Store property.
         /// </summary>
-        private EmergencyDispatchEntities _db = new EmergencyDispatchEntities();
+        private EmergencyMedicalAndAmbulanceDispatchEntities _db = new EmergencyMedicalAndAmbulanceDispatchEntities();
 
         #endregion
 
@@ -116,10 +116,10 @@ namespace Murugi_25July.Controllers
                         var logindetails = loginInfo.First();
 
                         // Login In.
-                        this.SignInUser(logindetails.Email, logindetails.Role, false);
+                        this.SignInUser(logindetails.Email, logindetails.UserTyper, false);
 
                         // setting.
-                        string role = logindetails.Role;
+                        string role = logindetails.UserTyper;
 
                         this.Session["role_id"] = role.Trim();
                         this.Session["FirstName"] = logindetails.FirstName;
@@ -264,9 +264,9 @@ namespace Murugi_25July.Controllers
                 return HttpNotFound();
             }
 
-            using (var context = new EmergencyDispatchEntities())
+            using (var context = new EmergencyMedicalAndAmbulanceDispatchEntities())
             {
-                var user = context.Users.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
+                var user = context.Users.Where(a => a.ResetPassCode == id).FirstOrDefault();
                 if (user != null)
                 {
                     ResetPasswordViewModel model = new ResetPasswordViewModel();
@@ -286,15 +286,15 @@ namespace Murugi_25July.Controllers
             var message = "";
             if (ModelState.IsValid)
             {
-                using (var context = new EmergencyDispatchEntities())
+                using (var context = new EmergencyMedicalAndAmbulanceDispatchEntities())
                 {
-                    var user = context.Users.Where(a => a.ResetPasswordCode == model.ResetCode).FirstOrDefault();
+                    var user = context.Users.Where(a => a.ResetPassCode == model.ResetCode).FirstOrDefault();
                     if (user != null)
                     {
                         //you can encrypt password here, we are not doing it
                         user.Password = GetMD5(model.NewPassword);
                         //make resetpasswordcode empty string now
-                        user.ResetPasswordCode = "";
+                        user.ResetPassCode = "";
                         //to avoid validation issues, disable it
                         context.Configuration.ValidateOnSaveEnabled = false;
                         context.SaveChanges();

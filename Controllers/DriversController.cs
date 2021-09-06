@@ -11,7 +11,7 @@ namespace Murugi_25July.Controllers
 {
     public class DriversController : Controller
     {
-        EmergencyDispatchEntities _db = new EmergencyDispatchEntities();
+        EmergencyMedicalAndAmbulanceDispatchEntities _db = new EmergencyMedicalAndAmbulanceDispatchEntities();
         // GET: Drivers
         public ActionResult Index()
         {
@@ -49,7 +49,7 @@ namespace Murugi_25July.Controllers
             {
                 var user = new User { Email = _UsersViewModel.Email, FirstName = _UsersViewModel.FirstName, Password = _UsersViewModel.Password };
 
-                using (var db = new EmergencyDispatchEntities())
+                using (var db = new EmergencyMedicalAndAmbulanceDispatchEntities())
                 {
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.Users.Add(user);
