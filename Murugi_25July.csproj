@@ -162,7 +162,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\ADMIN\ADMINAreaRegistration.cs" />
-    <Compile Include="Areas\AMBULANCES\AMBULANCESAreaRegistration.cs" />
+    <Compile Include="Areas\ADMIN\Controllers\AmbulancesController.cs" />
+    <Compile Include="Areas\ADMIN\Controllers\SettingsController.cs" />
     <Compile Include="Areas\USERS\USERSAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -373,7 +375,6 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\ADMIN\Views\web.config" />
     <Content Include="Areas\USERS\Views\web.config" />
-    <Content Include="Areas\AMBULANCES\Views\web.config" />
     <Content Include="Models\EmergencyMedicalAndAmbulanceDispatch.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EmergencyMedicalAndAmbulanceDispatch.edmx</DependentUpon>
@@ -397,6 +398,9 @@
     <Content Include="Models\EmergencyMedicalAndAmbulanceDispatch.edmx.diagram">
       <DependentUpon>EmergencyMedicalAndAmbulanceDispatch.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\ADMIN\Views\Settings\Index.cshtml" />
+    <Content Include="Areas\ADMIN\Views\Ambulances\Create.cshtml" />
+    <Content Include="Areas\ADMIN\Views\Ambulances\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -430,12 +434,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\ADMIN\Controllers\" />
     <Folder Include="Areas\ADMIN\Data\" />
     <Folder Include="Areas\ADMIN\Views\Shared\" />
-    <Folder Include="Areas\AMBULANCES\Controllers\" />
-    <Folder Include="Areas\AMBULANCES\Data\" />
-    <Folder Include="Areas\AMBULANCES\Views\Shared\" />
     <Folder Include="Areas\USERS\Controllers\" />
     <Folder Include="Areas\USERS\Data\" />
     <Folder Include="Areas\USERS\Views\Shared\" />
