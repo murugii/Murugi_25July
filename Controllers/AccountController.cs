@@ -103,9 +103,9 @@ namespace Murugi_25July.Controllers
                 if (ModelState.IsValid)
                 {
                     string email = model.Email;
-                    string password = GetMD5(model.Password);                  
+                    string password = GetMD5(model.Password);
 
-                    //LINQ
+                    string Area = "USER";
 
                     var loginInfo = this._db.Users.Where(m => m.Email == email && m.Password == password).ToList();
 
@@ -124,12 +124,18 @@ namespace Murugi_25July.Controllers
                         this.Session["role_id"] = role.Trim();
                         this.Session["FirstName"] = logindetails.FirstName;
 
-                      
+
                         // Info.
+
+                        if (role.Trim() == "Admin")
+                        {
+                            Area = "Admin";
+                        }
+
 
                         if (String.IsNullOrEmpty(returnUrl))
                         {
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("Index", "Home", new { area = Area });
                         }
                         else
                         {

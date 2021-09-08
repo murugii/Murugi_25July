@@ -16,7 +16,8 @@ namespace Murugi_25July
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+                namespaces: new[] { "Murugi_25July.Controllers" }
             );
         }
     }

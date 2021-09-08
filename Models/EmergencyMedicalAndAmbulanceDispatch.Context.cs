@@ -16,7 +16,7 @@ namespace Murugi_25July.Models
     public partial class EmergencyMedicalAndAmbulanceDispatchEntities : DbContext
     {
         public EmergencyMedicalAndAmbulanceDispatchEntities()
-            : base("name=EmergencyMedicalAndAmbulanceDispatchEntities2")
+            : base("name=EmergencyMedicalAndAmbulanceDispatchEntities")
         {
         }
     
