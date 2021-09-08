@@ -7,7 +7,7 @@ using Murugi_25July.Models;
 using Murugi_25July.ViewModels;
 using Newtonsoft.Json;
 
-namespace Murugi_25July.Controllers
+namespace Murugi_25July.Areas.ADMIN.Controllers
 {
     public class DriversController : Controller
     {
@@ -21,13 +21,13 @@ namespace Murugi_25July.Controllers
             {
                 var list = _db.Users.ToList();
 
-                foreach(var user in list)
+                foreach (var user in list)
                 {
                     _UsersViewModel.Add(new UsersViewModel { Email = user.Email, FirstName = user.FirstName });
                 }
 
             }
-            catch(Exception es)
+            catch (Exception es)
             {
 
             }
@@ -59,7 +59,7 @@ namespace Murugi_25July.Controllers
                     message = "Avengers! Assemble.....";
                 }
             }
-            catch(Exception es)
+            catch (Exception es)
             {
                 status = "999";
                 message = es.Message;

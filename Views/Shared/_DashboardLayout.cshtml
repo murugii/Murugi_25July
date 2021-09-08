@@ -406,7 +406,7 @@
 
             <ul class="nav nav-list">
                 <li class="active">
-                    <a href="index.html">
+                    <a href="@Url.Action("Index", "Home")">
                         <i class="menu-icon fa fa-tachometer"></i>
                         <span class="menu-text"> Dashboard </span>
                     </a>
@@ -460,7 +460,27 @@
                             <i class="ace-icon fa fa-home home-icon"></i>
                             <a href="#">Home</a>
                         </li>
-                        <li class="active">Dashboard</li>
+                        @if (ViewContext.RouteData.Values["controller"] != null)
+                        {
+                            if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", ViewContext.RouteData.Values["controller"].ToString())">
+                                        @Html.Raw(ViewContext.RouteData.Values["controller"].ToString())
+                                    </a>
+                                </li>
+
+                            }
+
+                        }
+                        @if (ViewContext.RouteData.Values["action"] != null)
+                        {
+                            if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+                            {
+                                <li class="active">@Html.Raw(ViewContext.RouteData.Values["action"].ToString())</li>
+                            }
+
+                        }
                     </ul><!-- /.breadcrumb -->
 
                     <div class="nav-search" id="nav-search">
@@ -560,8 +580,8 @@
             <div class="footer-inner">
                 <div class="footer-content">
                     <span class="bigger-120">
-                        <span class="blue bolder">Ace</span>
-                        Application &copy; 2013-2014
+                        <span class="red bolder">Emergency</span>
+                        Medical & Ambulances Dispatch System &copy; @Html.Raw(DateTime.Now.Year.ToString())
                     </span>
 
                     &nbsp; &nbsp;

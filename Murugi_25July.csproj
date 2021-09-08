@@ -163,12 +163,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\ADMIN\ADMINAreaRegistration.cs" />
     <Compile Include="Areas\ADMIN\Controllers\AmbulancesController.cs" />
+    <Compile Include="Areas\ADMIN\Controllers\DriversController.cs" />
     <Compile Include="Areas\ADMIN\Controllers\HomeController.cs" />
     <Compile Include="Areas\ADMIN\Controllers\SettingsController.cs" />
     <Compile Include="Areas\USERS\USERSAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomFunctions\AfricasTalkingGateway.cs" />
     <Compile Include="CustomFunctions\AppFunctions.cs" />
@@ -403,6 +403,8 @@
     <Content Include="Areas\ADMIN\Views\Ambulances\Create.cshtml" />
     <Content Include="Areas\ADMIN\Views\Ambulances\Index.cshtml" />
     <Content Include="Areas\ADMIN\Views\Home\Index.cshtml" />
+    <Content Include="Areas\ADMIN\Views\Drivers\Create.cshtml" />
+    <Content Include="Areas\ADMIN\Views\Drivers\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -431,8 +433,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Drivers\Index.cshtml" />
-    <Content Include="Views\Drivers\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
