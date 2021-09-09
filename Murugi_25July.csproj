@@ -164,7 +164,9 @@
     <Compile Include="Areas\ADMIN\ADMINAreaRegistration.cs" />
     <Compile Include="Areas\ADMIN\Controllers\AmbulancesController.cs" />
     <Compile Include="Areas\ADMIN\Controllers\DriversController.cs" />
+    <Compile Include="Areas\ADMIN\Controllers\EmergencyAreasController.cs" />
     <Compile Include="Areas\ADMIN\Controllers\HomeController.cs" />
+    <Compile Include="Areas\ADMIN\Controllers\RequestsController.cs" />
     <Compile Include="Areas\ADMIN\Controllers\SettingsController.cs" />
     <Compile Include="Areas\USERS\USERSAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -405,6 +407,8 @@
     <Content Include="Areas\ADMIN\Views\Home\Index.cshtml" />
     <Content Include="Areas\ADMIN\Views\Drivers\Create.cshtml" />
     <Content Include="Areas\ADMIN\Views\Drivers\Index.cshtml" />
+    <Content Include="Areas\ADMIN\Views\Requests\Index.cshtml" />
+    <Content Include="Areas\ADMIN\Views\EmergencyAreas\Index.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
