@@ -5,11 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="EmergencyMedicalAndAmbulanceDispatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Locations">
           <Key>
-            <PropertyRef Name="Location" />
             <PropertyRef Name="Location_ID" />
           </Key>
           <Property Name="Location" Type="text" Nullable="false" />
@@ -27,6 +24,23 @@ warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations
           <Property Name="Vehicle_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TotalAmount" Type="money" Nullable="false" />
           <Property Name="RequestStatus" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AfricasTalkingAppName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AfricasTalkingApiKey" Type="nvarchar(max)" />
+          <Property Name="GoogleId" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailAppPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailSenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailUsername" Type="nvarchar" MaxLength="50" />
+          <Property Name="GmailPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailSender" Type="nvarchar" MaxLength="50" />
+          <Property Name="SMTPPort" Type="int" />
+          <Property Name="SMTPHost" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeNumbers" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -53,21 +67,24 @@ warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations
           <Property Name="status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer">
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Locations" EntityType="Self.Locations" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Locations].[Location] AS [Location], 
-    [Locations].[Location_ID] AS [Location_ID]
-    FROM [dbo].[Locations] AS [Locations]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EmergencyMedicalAndAmbulanceDispatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Location_ID" />
+          </Key>
+          <Property Name="Location1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Location_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Request">
           <Key>
             <PropertyRef Name="Request_ID" />
@@ -80,6 +97,23 @@ warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations
           <Property Name="Vehicle_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="RequestStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="AfricasTalkingAppName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AfricasTalkingApiKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GoogleId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailAppPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailSenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailUsername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GmailPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailSender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPort" Type="Int32" />
+          <Property Name="SMTPHost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeNumbers" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -105,26 +139,27 @@ warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations
           <Property Name="registration_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="status" Type="Int16" Nullable="false" />
         </EntityType>
-        <EntityType Name="Location">
-          <Key>
-            <PropertyRef Name="Location1" />
-            <PropertyRef Name="Location_ID" />
-          </Key>
-          <Property Name="Location1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Location_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
-          <EntitySet Name="Locations" EntityType="Self.Location" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer" CdmEntityContainer="EmergencyMedicalAndAmbulanceDispatchEntities">
+        <EntityContainerMapping StorageEntityContainer="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer" CdmEntityContainer="EmergencyMedicalAndAmbulanceDispatchEntities2">
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Location">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="Location1" ColumnName="Location" />
+                <ScalarProperty Name="Location_ID" ColumnName="Location_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Request">
               <MappingFragment StoreEntitySet="Requests">
@@ -136,6 +171,24 @@ warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations
                 <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AfricasTalkingAppName" ColumnName="AfricasTalkingAppName" />
+                <ScalarProperty Name="AfricasTalkingApiKey" ColumnName="AfricasTalkingApiKey" />
+                <ScalarProperty Name="GoogleId" ColumnName="GoogleId" />
+                <ScalarProperty Name="GmailAppPassword" ColumnName="GmailAppPassword" />
+                <ScalarProperty Name="GmailSenderName" ColumnName="GmailSenderName" />
+                <ScalarProperty Name="GmailUsername" ColumnName="GmailUsername" />
+                <ScalarProperty Name="GmailPassword" ColumnName="GmailPassword" />
+                <ScalarProperty Name="EmailSender" ColumnName="EmailSender" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
+                <ScalarProperty Name="EmployeeNumbers" ColumnName="EmployeeNumbers" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -162,14 +215,6 @@ warning 6002: The table/view 'EmergencyMedicalAndAmbulanceDispatch.dbo.Locations
                 <ScalarProperty Name="vehicle_ID" ColumnName="vehicle_ID" />
                 <ScalarProperty Name="registration_number" ColumnName="registration_number" />
                 <ScalarProperty Name="status" ColumnName="status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Location">
-              <MappingFragment StoreEntitySet="Locations">
-                <ScalarProperty Name="Location1" ColumnName="Location" />
-                <ScalarProperty Name="Location_ID" ColumnName="Location_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

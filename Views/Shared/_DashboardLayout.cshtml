@@ -60,8 +60,9 @@
             <div class="navbar-header pull-left">
                 <a href="index.html" class="navbar-brand">
                     <small>
-                        <i class="fa fa-leaf"></i>
-                        Ace Admin
+                        <i class="fa fa-ambulance"></i>
+                        Emergency
+                        Medical & Ambulances Dispatch System
                     </small>
                 </a>
             </div>
@@ -406,7 +407,7 @@
 
             <ul class="nav nav-list">
                 <li class="active">
-                    <a href="index.html">
+                    <a href="@Url.Action("Index", "Home")">
                         <i class="menu-icon fa fa-tachometer"></i>
                         <span class="menu-text"> Dashboard </span>
                     </a>
@@ -415,8 +416,78 @@
                 </li>
 
                 <li class="">
+                    <a href="@Url.Action("Index", "Settings")">
+                        <i class="menu-icon fa fa-bullhorn"></i>
+                        <span class="menu-text"> Requests </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-list"></i>
+                        <i class="menu-icon fa fa-map-marker"></i>
+                        <span class="menu-text"> Emergency Areas </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="@Url.Action("Create", "EmergencyAreas")">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Add area
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
+                            <a href="@Url.Action("Index", "EmergencyAreas")">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                View areas
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-ambulance"></i>
+                        <span class="menu-text"> Ambulances </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="@Url.Action("Create", "Ambulances")">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Add ambulance
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
+                            <a href="@Url.Action("Index", "Ambulances")">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                View ambulances
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-users"></i>
                         <span class="menu-text"> Drivers </span>
 
                         <b class="arrow fa fa-angle-down"></b>
@@ -445,6 +516,15 @@
                     </ul>
                 </li>
 
+                <li class="">
+                    <a href="@Url.Action("Index", "Settings")">
+                        <i class="menu-icon fa fa-cogs"></i>
+                        <span class="menu-text"> Settings </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
             </ul><!-- /.nav-list -->
 
             <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -460,7 +540,27 @@
                             <i class="ace-icon fa fa-home home-icon"></i>
                             <a href="#">Home</a>
                         </li>
-                        <li class="active">Dashboard</li>
+                        @if (ViewContext.RouteData.Values["controller"] != null)
+                        {
+                            if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", ViewContext.RouteData.Values["controller"].ToString())">
+                                        @Html.Raw(ViewContext.RouteData.Values["controller"].ToString())
+                                    </a>
+                                </li>
+
+                            }
+
+                        }
+                        @if (ViewContext.RouteData.Values["action"] != null)
+                        {
+                            if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+                            {
+                                <li class="active">@Html.Raw(ViewContext.RouteData.Values["action"].ToString())</li>
+                            }
+
+                        }
                     </ul><!-- /.breadcrumb -->
 
                     <div class="nav-search" id="nav-search">
@@ -543,11 +643,10 @@
 
                     <div class="page-header">
                         <h1>
-                            Dashboard
-                            <small>
-                                <i class="ace-icon fa fa-angle-double-right"></i>
-                                overview &amp; stats
-                            </small>
+                            @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                            {
+                                @Html.Raw(ViewContext.RouteData.Values["controller"].ToString())
+                            }
                         </h1>
                     </div><!-- /.page-header -->
 
@@ -560,8 +659,8 @@
             <div class="footer-inner">
                 <div class="footer-content">
                     <span class="bigger-120">
-                        <span class="blue bolder">Ace</span>
-                        Application &copy; 2013-2014
+                        <span class="red bolder">Emergency</span>
+                        Medical & Ambulances Dispatch System &copy; @Html.Raw(DateTime.Now.Year.ToString())
                     </span>
 
                     &nbsp; &nbsp;
