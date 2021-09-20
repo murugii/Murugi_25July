@@ -1,0 +1,108 @@
+﻿@model Murugi_25July.ViewModels.UsersViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="widget-box">
+    <div class="widget-header widget-header-blue widget-header-flat">
+        <h4 class="widget-title lighter">New Ambulance Wizard</h4>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main">
+            <div id="fuelux-wizard-container">
+
+                <div class="step-content pos-rel">
+                    <h3 class="lighter block green">Enter the following information</h3>
+
+                    @using (Html.BeginForm("CreateUser", "Drivers", FormMethod.Post, new { @id = "validation-form", @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Email Address:</label>
+
+                            <div class="col-xs-12 col-sm-9">
+                                <div class="clearfix">
+                                    @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="space-2"></div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
+
+                            <div class="col-xs-12 col-sm-9">
+                                <div class="clearfix">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="space-2"></div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password2">Confirm Password:</label>
+
+                            <div class="col-xs-12 col-sm-9">
+                                <div class="clearfix">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Password" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="hr hr-dotted"></div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Name:</label>
+
+                            <div class="col-xs-12 col-sm-9">
+                                <div class="clearfix">
+                                    @Html.TextBoxFor(m => m.FirstName, "", new { @class = "form-control", @placeholder = "Email" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="space-2"></div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="phone">Phone Number:</label>
+
+                            <div class="col-xs-12 col-sm-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="ace-icon fa fa-phone"></i>
+                                    </span>
+
+                                    @Html.TextBoxFor(m => m.Phone, "", new { @class = "form-control", @placeholder = "Email" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="space-2"></div>
+                    }
+                </div>
+            </div>
+
+            <hr />
+            <div class="wizard-actions center">
+                <button class="btn btn-success btn-next" id="Save">
+                    Save
+                    <i class="ace-icon fa fa-floppy-o  icon-on-right"></i>
+                </button>
+            </div>
+        </div><!-- /.widget-main -->
+    </div><!-- /.widget-body -->
+</div>
+
