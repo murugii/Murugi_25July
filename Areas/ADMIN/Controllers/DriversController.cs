@@ -15,21 +15,25 @@ namespace Murugi_25July.Areas.ADMIN.Controllers
         // GET: Drivers
         public ActionResult Index()
         {
-            List<UsersViewModel> _UsersViewModel = new List<UsersViewModel>();
+            List<DriversViewModel> _UsersViewModel = new List<DriversViewModel>();
             //fetch from database
             try
             {
-                var list = _db.Users.ToList();
-
-                foreach (var user in list)
+                using(var db = new EmergencyMedicalAndAmbulanceDispatchEntities())
                 {
-                    _UsersViewModel.Add(new UsersViewModel { Email = user.Email, FirstName = user.FirstName });
+                    var list = db.Users.Where(x => x.UserType == "Driver").ToList();
+
+                    foreach (var user in list)
+                    {
+                        _UsersViewModel.Add(new DriversViewModel { Email = user.Email, FirstName = user.FirstName + " " + user.LastName, IdNumber = user.NationalIDNumber.ToString(), Phone = user.PhoneNumber.ToString() });
+                    }
                 }
 
             }
             catch (Exception es)
             {
-
+                string x = es.InnerException.Message;
+                x = "" +x;
             }
 
             return View(_UsersViewModel);

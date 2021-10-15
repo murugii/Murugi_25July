@@ -54,7 +54,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="int" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="UserType" Type="text" Nullable="false" />
+          <Property Name="UserType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Residence" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ResetPassCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -163,7 +163,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Residence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ResetPassCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Requests" FromRole="Users" ToRole="Requests" />
@@ -203,7 +203,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="EmergencyLocations" EntityType="Self.EmergencyLocation" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="Settings" EntityType="Self.Setting" />
@@ -223,7 +223,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer" CdmEntityContainer="EmergencyMedicalAndAmbulanceDispatchEntities1">
+        <EntityContainerMapping StorageEntityContainer="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer" CdmEntityContainer="EmergencyMedicalAndAmbulanceDispatchEntities">
           <EntitySetMapping Name="EmergencyLocations">
             <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.EmergencyLocation">
               <MappingFragment StoreEntitySet="EmergencyLocations">

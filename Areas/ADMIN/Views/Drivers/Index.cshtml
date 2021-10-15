@@ -27,13 +27,12 @@
                                 <span class="lbl"></span>
                             </label>
                         </th>
-                        <th>Us</th>
-                        <th>Price</th>
-                        <th class="hidden-480">Clicks</th>
+                        <th>Id Number</th>
+                        <th>Name</th>
+                        <th class="hidden-480">Email</th>
 
                         <th>
-                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                            Update
+                            Phone Number
                         </th>
                         <th class="hidden-480">Status</th>
 
@@ -56,8 +55,8 @@
                                 @user.IdNumber
                             </td>
                             <td>@user.FirstName</td>
-                            <td class="hidden-480">3,330</td>
-                            <td>Feb 12</td>
+                            <td class="hidden-480">@user.Email</td>
+                            <td>@user.Phone</td>
 
                             <td class="hidden-480">
                                 <span class="label label-sm label-warning">Expiring</span>
