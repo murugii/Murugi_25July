@@ -14,8 +14,17 @@ namespace Murugi_25July.Models
     
     public partial class Vehicle
     {
-        public decimal vehicle_ID { get; set; }
-        public string registration_number { get; set; }
-        public short status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Vehicle()
+        {
+            this.Requests = new HashSet<Request>();
+        }
+    
+        public string RegistrationNumber { get; set; }
+        public string VehicleType { get; set; }
+        public string Color { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

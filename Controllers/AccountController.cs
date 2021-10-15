@@ -116,10 +116,10 @@ namespace Murugi_25July.Controllers
                         var logindetails = loginInfo.First();
 
                         // Login In.
-                        this.SignInUser(logindetails.Email, logindetails.UserTyper, false);
+                        this.SignInUser(logindetails.Email, logindetails.UserType, false);
 
                         // setting.
-                        string role = logindetails.UserTyper;
+                        string role = logindetails.UserType;
 
                         this.Session["role_id"] = role.Trim();
                         this.Session["FirstName"] = logindetails.FirstName;

@@ -12,9 +12,9 @@ namespace Murugi_25July.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class EmergencyLocation
     {
-        public string Location1 { get; set; }
-        public string Location_ID { get; set; }
+        public int Id { get; set; }
+        public string Description { get; set; }
     }
 }

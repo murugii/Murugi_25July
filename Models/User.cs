@@ -14,16 +14,24 @@ namespace Murugi_25July.Models
     
     public partial class User
     {
-        public int User_ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Requests = new HashSet<Request>();
+        }
+    
+        public string NationalIDNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
-        public int National_ID_Number { get; set; }
         public string Email { get; set; }
         public int PhoneNumber { get; set; }
         public string Password { get; set; }
-        public string UserTyper { get; set; }
+        public string UserType { get; set; }
         public string Residence { get; set; }
         public string ResetPassCode { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

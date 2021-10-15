@@ -5,25 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="EmergencyMedicalAndAmbulanceDispatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Locations">
+        <EntityType Name="EmergencyLocations">
           <Key>
-            <PropertyRef Name="Location_ID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Location" Type="text" Nullable="false" />
-          <Property Name="Location_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
-            <PropertyRef Name="Request_ID" />
+            <PropertyRef Name="RequestID" />
           </Key>
-          <Property Name="Request_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RequestType" Type="text" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="Date_Time" Type="datetime" Nullable="false" />
-          <Property Name="User_ID" Type="int" Nullable="false" />
-          <Property Name="Vehicle_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TotalAmount" Type="money" Nullable="false" />
-          <Property Name="RequestStatus" Type="text" Nullable="false" />
+          <Property Name="RequestID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestType" Type="text" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Date_Time" Type="datetime" />
+          <Property Name="RequesterIdNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Location" Type="int" Nullable="false" />
+          <Property Name="VehicleRegistrationNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="RequestStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -44,59 +45,95 @@
         </EntityType>
         <EntityType Name="Users">
           <Key>
-            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="NationalIDNumber" />
           </Key>
-          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="NationalIDNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FirstName" Type="text" Nullable="false" />
           <Property Name="LastName" Type="text" Nullable="false" />
           <Property Name="UserName" Type="text" Nullable="false" />
-          <Property Name="National_ID_Number" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="int" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="UserTyper" Type="text" Nullable="false" />
+          <Property Name="UserType" Type="text" Nullable="false" />
           <Property Name="Residence" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ResetPassCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Vehicles">
           <Key>
-            <PropertyRef Name="vehicle_ID" />
+            <PropertyRef Name="RegistrationNumber" />
           </Key>
-          <Property Name="vehicle_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="registration_number" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VehicleType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Color" Type="nchar" MaxLength="10" />
         </EntityType>
+        <Association Name="FK_Requests_Requests">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="NationalIDNumber" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="RequesterIdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Vehicles">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="RegistrationNumber" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="VehicleRegistrationNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer">
-          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmergencyLocations" EntityType="Self.EmergencyLocations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Requests_Requests" Association="Self.FK_Requests_Requests">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Vehicles" Association="Self.FK_Requests_Vehicles">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EmergencyMedicalAndAmbulanceDispatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Location">
+        <EntityType Name="EmergencyLocation">
           <Key>
-            <PropertyRef Name="Location_ID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Location1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Location_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
-            <PropertyRef Name="Request_ID" />
+            <PropertyRef Name="RequestID" />
           </Key>
-          <Property Name="Request_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RequestType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date_Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="User_ID" Type="Int32" Nullable="false" />
-          <Property Name="Vehicle_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="RequestStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RequestID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Time" Type="DateTime" Precision="3" />
+          <Property Name="RequesterIdNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="Int32" Nullable="false" />
+          <Property Name="VehicleRegistrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="RequestStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Requests_Requests" FromRole="Requests" ToRole="Users" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK_Requests_Vehicles" FromRole="Requests" ToRole="Vehicles" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -117,59 +154,95 @@
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="NationalIDNumber" />
           </Key>
-          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="NationalIDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="National_ID_Number" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserTyper" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Residence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ResetPassCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Requests" FromRole="Users" ToRole="Requests" />
         </EntityType>
         <EntityType Name="Vehicle">
           <Key>
-            <PropertyRef Name="vehicle_ID" />
+            <PropertyRef Name="RegistrationNumber" />
           </Key>
-          <Property Name="vehicle_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="registration_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="status" Type="Int16" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VehicleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Vehicles" FromRole="Vehicles" ToRole="Requests" />
         </EntityType>
-        <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Locations" EntityType="Self.Location" />
+        <Association Name="FK_Requests_Requests">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="NationalIDNumber" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="RequesterIdNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_Vehicles">
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="RegistrationNumber" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="VehicleRegistrationNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EmergencyMedicalAndAmbulanceDispatchEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmergencyLocations" EntityType="Self.EmergencyLocation" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="Settings" EntityType="Self.Setting" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <AssociationSet Name="FK_Requests_Requests" Association="Self.FK_Requests_Requests">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_Vehicles" Association="Self.FK_Requests_Vehicles">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer" CdmEntityContainer="EmergencyMedicalAndAmbulanceDispatchEntities2">
-          <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Location">
-              <MappingFragment StoreEntitySet="Locations">
-                <ScalarProperty Name="Location1" ColumnName="Location" />
-                <ScalarProperty Name="Location_ID" ColumnName="Location_ID" />
+        <EntityContainerMapping StorageEntityContainer="EmergencyMedicalAndAmbulanceDispatchModelStoreContainer" CdmEntityContainer="EmergencyMedicalAndAmbulanceDispatchEntities1">
+          <EntitySetMapping Name="EmergencyLocations">
+            <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.EmergencyLocation">
+              <MappingFragment StoreEntitySet="EmergencyLocations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Request">
               <MappingFragment StoreEntitySet="Requests">
-                <ScalarProperty Name="Request_ID" ColumnName="Request_ID" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
                 <ScalarProperty Name="RequestType" ColumnName="RequestType" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="RequesterIdNumber" ColumnName="RequesterIdNumber" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="VehicleRegistrationNo" ColumnName="VehicleRegistrationNo" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -195,15 +268,14 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="NationalIDNumber" ColumnName="NationalIDNumber" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="National_ID_Number" ColumnName="National_ID_Number" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserTyper" ColumnName="UserTyper" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="Residence" ColumnName="Residence" />
                 <ScalarProperty Name="ResetPassCode" ColumnName="ResetPassCode" />
               </MappingFragment>
@@ -212,9 +284,9 @@
           <EntitySetMapping Name="Vehicles">
             <EntityTypeMapping TypeName="EmergencyMedicalAndAmbulanceDispatchModel.Vehicle">
               <MappingFragment StoreEntitySet="Vehicles">
-                <ScalarProperty Name="vehicle_ID" ColumnName="vehicle_ID" />
-                <ScalarProperty Name="registration_number" ColumnName="registration_number" />
-                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

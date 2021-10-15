@@ -25,7 +25,7 @@ namespace Murugi_25July.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<EmergencyLocation> EmergencyLocations { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<User> Users { get; set; }
