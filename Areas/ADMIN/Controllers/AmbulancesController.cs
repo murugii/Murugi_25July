@@ -15,15 +15,15 @@ namespace Murugi_25July.Areas.ADMIN.Controllers
         // GET: ADMIN/Ambulances
         public ActionResult Index()
         {
-            List<UsersViewModel> _UsersViewModel = new List<UsersViewModel>();
+            List<AmbulancesViewModel> _UsersViewModel = new List<AmbulancesViewModel>();
             //fetch from database
             try
             {
-                var list = _db.Users.ToList();
+                var list = _db.Vehicles.ToList();
 
                 foreach (var user in list)
                 {
-                    _UsersViewModel.Add(new UsersViewModel { Email = user.Email, FirstName = user.FirstName });
+                    _UsersViewModel.Add(new AmbulancesViewModel { RegistrationNumber = user.RegistrationNumber, VehicleType = user.VehicleType, Color = user.Color });
                 }
 
             }
